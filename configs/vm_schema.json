@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VirtualMachine",
+  "type": "object",
+  "properties": {
+    "name": {"type": "string"},
+    "os": {"type": "string"},
+    "cpu": {"type": "number"},
+    "ram": {"type": "number"},
+    "disk": {"type": "number"}
+  },
+  "required": ["name", "os", "cpu", "ram", "disk"]
+}

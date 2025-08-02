@@ -1,0 +1,5 @@
+nginx
+Copy
+Edit
+jsonschema
+Python 3.10+
