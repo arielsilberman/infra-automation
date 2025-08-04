@@ -1,7 +1,6 @@
 # 🚀 Infrastructure Automation Simulator
 
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A comprehensive Python-based infrastructure simulator that allows you to experiment with virtual machine provisioning and service deployment without the need for actual cloud resources. Perfect for learning DevOps concepts, testing infrastructure automation, and prototyping deployment strategies!
 
