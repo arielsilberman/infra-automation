@@ -13,9 +13,8 @@ if [[ "$SERVICE" == "" ]]; then
   exit 1
 fi
 
-echo "Starting installation of $SERVICE... Please wait a few seconds"
-log "Starting installation of $SERVICE... Please wait a few seconds"
-sleep 3
-echo "$SERVICE installed successfully."
+
+log "Starting installation of $SERVICE... "
+sleep 2
 log "$SERVICE installed successfully."
 

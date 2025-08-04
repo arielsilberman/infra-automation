@@ -2,16 +2,20 @@ import json                                          # for json files
 import subprocess                                    # for running bash scripts in python
 from src.logger import setup_logger                  # logging module imported from local
 from jsonschema import validate, ValidationError     # module for json error handling
+from pathlib import Path
 
 
-with open("configs/vm_schema.json") as f:
-    vm_schema = json.load(f)
+schema_path = Path(__file__).resolve().parent / "configs" / "vm_schema.json"
+
+# Load the schema once at module level
+with schema_path.open('r') as schema_file:
+    SCHEMA = json.load(schema_file)
 
 def usr_input():
     machines = []
     while True:    # Getting the name input from user and making an exit for him
         name = input("Select a name for the machine (or type 'done' to exit): ")
-        if name.lower() == 'done':
+        if name.lower() == 'done' or name == 'exit' or name == 'quit' or name == 'q':
             break
         while True:    # Getting the Os from user and making sure that it accepts all forms of os alias
             os = input("Select the running OS (win or linux): ").lower()
@@ -54,7 +58,7 @@ def usr_input():
         }
 
         try:
-            validate(instance=instance_data, schema=vm_schema)
+            validate(instance=instance_data, schema=SCHEMA)
             instance_data["cpu"] = f"{int(instance_data['cpu'])}vCPU"
             instance_data["ram"] = f"{int(instance_data['ram'])}GB"
             instance_data["disk"] = f"{int(instance_data['disk'])}GB"
@@ -62,7 +66,6 @@ def usr_input():
 
         except ValidationError as err:
             print(f"An error has happened, please try again later. Error: {err.message}")
-
             log_message(f"Validation error: {err.message}", level="error")
         machines.append(instance_data)
 
@@ -77,7 +80,7 @@ def setup_script(service_name):
         log_message(f"An error has happened while installing {service_name}, please try again later. Error: {e}")
 
 logger = setup_logger()
-def log_message (message, level="info"):
+def log_message(message, level="info"):
     if level == "error":
         logger.error(message)
     else:
@@ -88,26 +91,28 @@ def main():
     try:
         log_message("Provisioning initiated")
 
-        instances = usr_input()
-        with open("configs/instances.json", "r") as f:
+        base_path = Path(__file__).resolve().parent  # directory of the current script
+        instances_path = base_path / "configs" / "instances.json"
+
+        with instances_path.open("r") as f:
             try:
                 existing_data = json.load(f)
             except json.JSONDecodeError:
                 existing_data = []
+        new_instances = usr_input()
+        existing_data.extend(new_instances)
 
-        existing_data.extend(instances)
-
-        with open("configs/instances.json", "w") as f:
+        with instances_path.open("w") as f:
             json.dump(existing_data, f, indent=4)
 
         log_message("Provisioning done.")
 
         while True:
             service = input("Select a service to install (nginx, dns, smtp) enter 'done' to exit: ")
-            if service == 'done':
+            if service == 'done' or service == 'exit' or service == 'quit' or service == 'q':
                 break
             setup_script(service)
-            log_message(f"{service} installed")
+
 
     except KeyboardInterrupt:
         log_message("User interrupted the VM creation...", level="error")

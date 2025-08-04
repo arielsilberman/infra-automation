@@ -1,122 +1,72 @@
-Infra Automation Simulator 
+# 🚀 Infrastructure Automation Simulator
 
-This project is a mock infrastructure provisioning tool built in Python.
-It allows you to create virtual machine (VM) instances, validate inputs with JSON Schema,
-and simulate service installation through Bash scripts — all without touching real cloud resources.
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
 
-Project Overview
-Accepts user inputs for creating virtual machines:
+A Python-based infrastructure simulator that allows you to experiment with virtual machine provisioning and service deployment without the need for actual cloud resources. Perfect for learning and testing infrastructure concepts!
 
-Name
+## ✨ Key Features
 
-Operating System (Windows or Linux)
+- 🖥️ **Virtual Machine Creation**
+  - Custom VM naming
+  - OS selection (Windows/Linux)
+  - Hardware specification (CPU, RAM, Disk)
+- 🛡️ **Input Validation**
+  - JSON Schema validation for VM configurations
+  - Error handling for invalid inputs
+- 📝 **Comprehensive Logging**
+  - Detailed activity tracking
+  - Error logging
+- 🔧 **Service Installation Simulation**
+  - NGINX
+  - DNS
+  - SMTP
+- 💾 **State Persistence**
+  - JSON-based storage
+  - Configuration management
 
-CPU count (vCPUs)
+## 🛠️ Installation
 
-RAM size (GB)
+1. **Clone the Repository**
+   ```bash
+   git clone <https://github.com/arielsilberman/infra-automation.git>
+   cd infra-automation
+   ```
 
-Disk size (GB)
+2. **Set Up Virtual Environment**
+   ```bash
+   python -m venv .venv
+   
+   # Windows
+   .venv\Scripts\activate
+   
+   # Unix/MacOS
+   source .venv/bin/activate
+   ```
 
-Validates inputs against a JSON schema to prevent bad data.
+3. **Install Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Logs all activity (success and errors) in logs/provisioning.log.
+## 🎮 Usage
 
-Saves VM instances to configs/instances.json for persistence.
+1. **Start the Simulator**
+   ```bash
+   python infrastructure_sim.py
+   ```
 
-Simulates service installation (nginx, dns, smtp) via Bash script.
+2. **Create Virtual Machines**
+   - Enter machine name
+   - Choose OS (Windows/Linux)
+   - Specify CPU count
+   - Set RAM size (GB)
+   - Define disk space (GB)
+   - Type 'done' when finished
 
-Project Structure
+3. **Install Services**
+   - Choose from: nginx, dns, smtp
+   - Type 'done' to complete setup
 
-infra-automation/
+## 📁 Project Structure
 
-│
-├── configs/
-
-│ ├── instances.json
-
-│ └── vm_schema.json 
-
-
-│
-├── logs/
-
-│ └── provisioning.log
-
-│
-
-├── scripts/
-
-│ └── install.sh
-
-│
-
-├── src/
-
-│ └── logger.py
-
-│
-
-├── infrastructure_sim.py
-
-├── machine.py
-
-├── README.md
-
-└── requirements.txt
-
-bash
-
-Copy
-
-Edit
-
-git clone <your_repo_link_here>
-
-cd infra-automation
-
-Create a virtual environment (recommended)
-
-bash
-
-Copy
-
-Edit
-
-python -m venv .venv
-
-source .venv/bin/activate
-
-.venv\Scripts\activate
-
-Install dependencies
-
-
-bash
-
-Copy
-
-Edit
-
-pip install -r requirements.txt
-
-Usage
-
-
-Run the simulator:
-
-bash
-
-Copy
-
-Edit
-
-python infrastructure_sim.py
-
-Follow the prompts to add VMs.
-
-
-Enter done when you’ve finished adding machines.
-
-Optionally install services like nginx, dns, or smtp.
-
-Check configs/instances.json for saved instances and logs/provisioning.log for logs.
+infra-automation/ ├── configs/ │ ├── instances.json # Stores VM configurations │ └── vm_schema.json # JSON validation schema ├── logs/ │ └── provisioning.log # Activity logging ├── scripts/ │ └── install.sh # Service installation simulator ├── src/ │ └── logger.py # Logging configuration ├── infrastructure_sim.py # Main application ├── machine.py # VM class definition └── requirements.txt # Project dependencies
